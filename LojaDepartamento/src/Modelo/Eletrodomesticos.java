@@ -13,9 +13,9 @@ import java.util.Calendar;
  */
 public class Eletrodomesticos extends Produto{
     
-    Eletrodomesticos(){}
+    public Eletrodomesticos(){}
     
-    Eletrodomesticos(int codigoProduto, String nome, String descricao,
+    public Eletrodomesticos(int codigoProduto, String nome, String descricao,
             Calendar dataFabricacao, float valor, Fornecedor fornecedor, boolean disponivel){
         super(codigoProduto, nome, descricao, dataFabricacao, valor, fornecedor, disponivel);
     }    

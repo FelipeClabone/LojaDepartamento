@@ -13,9 +13,9 @@ import java.util.Calendar;
  */
 public class Vestuario extends Produto{
     
-    Vestuario(){}
+    public Vestuario(){}
     
-    Vestuario(int codigoProduto, String nome, String descricao,
+    public Vestuario(int codigoProduto, String nome, String descricao,
             Calendar dataFabricacao, float valor, Fornecedor fornecedor, boolean disponivel){
         super(codigoProduto, nome, descricao, dataFabricacao, valor, fornecedor, disponivel);
     }    

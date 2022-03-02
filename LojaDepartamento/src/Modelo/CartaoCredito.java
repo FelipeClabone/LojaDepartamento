@@ -14,9 +14,9 @@ public class CartaoCredito extends Pagamento{
     private String bandeira;
     private String numero;
     
-    CartaoCredito(){}
+    public CartaoCredito(){}
     
-    CartaoCredito(String nome, String bandeira, String numero){
+    public CartaoCredito(String nome, String bandeira, String numero){
         this.nome = nome;
         this.bandeira = bandeira;
         this.numero = numero;

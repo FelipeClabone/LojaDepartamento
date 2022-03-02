@@ -20,9 +20,9 @@ public abstract class Produto {
     protected Fornecedor fornecedor; //INVES DE STRING É UMA CLASSE FORNECEDOR
     protected boolean disponivel;
     
-    Produto(){}
+    public Produto(){}
     
-    Produto(int codigoProduto, String nome, String descricao, Calendar dataFabricacao, 
+    public Produto(int codigoProduto, String nome, String descricao, Calendar dataFabricacao, 
             float valor, Fornecedor fornecedor, boolean disponivel){
         this.codigoProduto = codigoProduto;
         this.nome = nome;

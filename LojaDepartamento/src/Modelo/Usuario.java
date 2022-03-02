@@ -21,9 +21,9 @@ public class Usuario {
     protected String cep;
     protected String email;
     
-    Usuario(){}
+    public Usuario(){}
     
-    Usuario(int codigoUsuario, String nome, String cpf, String rg,
+    public Usuario(int codigoUsuario, String nome, String cpf, String rg,
             Calendar dataNascimento, String endereco, String cep, String email){
         this.codigoUsuario = codigoUsuario;
         this.nome = nome;

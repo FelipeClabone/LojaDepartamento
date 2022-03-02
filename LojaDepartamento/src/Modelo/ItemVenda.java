@@ -14,9 +14,9 @@ public class ItemVenda {
     private float valor;
     private int quantidade;
     
-    ItemVenda(){}
+    public ItemVenda(){}
     
-    ItemVenda(int codigoProduto, float valor, int quantidade){
+    public ItemVenda(int codigoProduto, float valor, int quantidade){
         this.codigoProduto = codigoProduto;
         this.valor = valor;
         this.quantidade = quantidade;

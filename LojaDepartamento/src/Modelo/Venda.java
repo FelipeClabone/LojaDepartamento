@@ -19,12 +19,12 @@ public class Venda {
     //private ArrayList<ItemVenda> itensVenda
     private float valorTotal;
     private float valorDesconto;
-    private String formaPagamento; //vai ser da classe Pagamento
+    private Pagamento formaPagamento;
     
-    Venda(){}
+    public Venda(){}
     
-    Venda(int codigoVenda, Cliente cliente, Vendedor vendedor, Calendar dataVenda,
-            float valorTotal, float valorDesconto, String formaPagamento){
+    public Venda(int codigoVenda, Cliente cliente, Vendedor vendedor, Calendar dataVenda,
+            float valorTotal, float valorDesconto, Pagamento formaPagamento){
         this.codigoVenda = codigoVenda;
         this.cliente = cliente;
         this.vendedor = vendedor;
@@ -82,11 +82,11 @@ public class Venda {
         this.valorDesconto = valorDesconto;
     }
 
-    public String getFormaPagamento() {
+    public Pagamento getFormaPagamento() {
         return formaPagamento;
     }
 
-    public void setFormaPagamento(String formaPagamento) {
+    public void setFormaPagamento(Pagamento formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
 }

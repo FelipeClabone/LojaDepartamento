@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 /**
@@ -14,71 +15,70 @@ import java.util.Iterator;
  */
 public class LojaDepartamento {
     private String nomeLoja;
-    private final static ArrayList<Venda> vendas = new ArrayList();;
-    private final static ArrayList<Produto> produtos = new ArrayList();;
-    private final static ArrayList<Fornecedor> fornecedores = new ArrayList();;
-    private final static ArrayList<Usuario> usuarios = new ArrayList();;
+    private static ArrayList<Venda> vendas = new ArrayList();;
+    private static ArrayList<Produto> produtos = new ArrayList();;
+    private static ArrayList<Fornecedor> fornecedores = new ArrayList();;
+    private static ArrayList<Usuario> usuarios = new ArrayList();;
     private String configuracoes; //TODO: tem q mudar para a classe Configuracao
 
-    LojaDepartamento(){}
+    public LojaDepartamento(){}
 
-    LojaDepartamento(String nomeLoja){
+    public LojaDepartamento(String nomeLoja){
         this.nomeLoja = nomeLoja;
     }
     
-    public void addVenda(Venda v){
-        this.vendas.add(v);
-    }
-    
-    public void removeVenda(int codigoVenda){
-        for (Iterator<Venda> it = this.vendas.iterator(); it.hasNext();) {
-            Venda venda = it.next();
-            if (venda.getCodigoVenda() == codigoVenda){
-                this.vendas.remove(venda);
-                break;
-            }
-        }
-    }
-        
-    public void addProduto(Produto p){
-        this.produtos.add(p);
-    }
-    
-    public void removeproduto(int codigoProduto){
-        for (Iterator<Produto> it = LojaDepartamento.produtos.iterator(); it.hasNext();) {
-            Produto produto = it.next();
-            if (produto.getCodigoProduto() == codigoProduto){
-                this.produtos.remove(produto);
-                break;
-            }
-        }
-    }
-        
-    public void addForneceder(Fornecedor f){
-        this.fornecedores.add(f);
-    }
-    
-    public void removeFornecedor(int codigoFornecedor){
-        for (Iterator<Fornecedor> it = this.fornecedores.iterator(); it.hasNext();) {
-            Fornecedor fornecedor = it.next();
-            if (fornecedor.getCodigoFornecedor() == codigoFornecedor){
-                this.fornecedores.remove(fornecedor);
-                break;
-            }
-        }
+    public static void addVenda(int codigoVenda, Cliente cliente, Vendedor vendedor, 
+            Calendar dataVenda, float valorTotal, float valorDesconto, Pagamento formaPagamento){
+        Venda venda = new Venda(codigoVenda, cliente, vendedor, dataVenda,
+            valorTotal, valorDesconto, formaPagamento);
+        LojaDepartamento.vendas.add(venda);
     }
 
-    public void addUsuario(Usuario u){
-        this.usuarios.add(u);
+    public static ArrayList<Venda> getVendas() {
+        return vendas;
     }
     
-    public void removeUsuario(int codigoUsuario){
-        for (Iterator<Usuario> it = this.usuarios.iterator(); it.hasNext();) {
-            Usuario usuario = it.next();
-            if (usuario.getCodigoUsuario() == codigoUsuario){
-                this.usuarios.remove(usuario);
-                break;
-            }
-        }
+    public static void setVendas(ArrayList<Venda> vendas) {
+        LojaDepartamento.vendas = vendas;
+    }
+    
+    public static ArrayList<Produto> getProdutos() {
+        return produtos;
+    }
+    
+    public static void setProdutos(ArrayList<Produto> produtos) {
+        LojaDepartamento.produtos = produtos;
+    }
+    
+    public static ArrayList<Fornecedor> getFornecedores() {
+        return fornecedores;
+    }
+    
+    public static void setFornecedores(ArrayList<Fornecedor> fornecedores) {
+        LojaDepartamento.fornecedores = fornecedores;
+    }
+    
+    public static ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+    
+    public static void setUsuarios(ArrayList<Usuario> usuarios) {
+        LojaDepartamento.usuarios = usuarios;
+    }
+    
+    public String getNomeLoja() {
+        return nomeLoja;
+    }
+
+    public void setNomeLoja(String nomeLoja) {
+        this.nomeLoja = nomeLoja;
+    }
+
+    public String getConfiguracoes() {
+        return configuracoes;
+    }
+
+    public void setConfiguracoes(String configuracoes) {
+        this.configuracoes = configuracoes;
     }
 }

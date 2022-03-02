@@ -12,9 +12,9 @@ package Modelo;
 public class Pagamento {
     private String tipoPagamento;
     
-    Pagamento(){}
+    public Pagamento(){}
     
-    Pagamento(String tipoPagamento){
+    public Pagamento(String tipoPagamento){
         this.tipoPagamento = tipoPagamento;
     }
 

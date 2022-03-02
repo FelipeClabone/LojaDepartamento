@@ -14,9 +14,9 @@ import java.util.Calendar;
 public class Cliente extends Usuario{
     private boolean clienteOuro;
     
-    Cliente(){}
+    public Cliente(){}
     
-    Cliente(int codigoUsuario, String nome, String cpf, String rg,
+    public Cliente(int codigoUsuario, String nome, String cpf, String rg,
             Calendar dataNascimento, String endereco, String cep, String email,
             boolean clienteOuro){
         super(codigoUsuario, nome, cpf, rg, dataNascimento, endereco, cep, email);

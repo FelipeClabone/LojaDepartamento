@@ -17,9 +17,9 @@ public class Vendedor extends Usuario{
     private String pis;
     private Calendar dataAdmissao;
     
-    Vendedor(){}
+    public Vendedor(){}
     
-    Vendedor(int codigoUsuario, String nome, String cpf, String rg,
+    public Vendedor(int codigoUsuario, String nome, String cpf, String rg,
             Calendar dataNascimento, String endereco, String cep, String email,
             float salario, String pis, Calendar dataAdmissao){
         super(codigoUsuario, nome, cpf, rg, dataNascimento, endereco, cep, email);

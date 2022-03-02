@@ -11,5 +11,5 @@ package Modelo;
  */
 public class Dinheiro extends Pagamento{
     
-    Dinheiro(){}
+    public Dinheiro(){}
 }

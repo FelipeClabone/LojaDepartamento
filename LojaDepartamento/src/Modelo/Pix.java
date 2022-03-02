@@ -12,9 +12,9 @@ package Modelo;
 public class Pix extends Pagamento{
     private String codigoPix;
     
-    Pix(){}
+    public Pix(){}
     
-    Pix(String codigoPix){
+    public Pix(String codigoPix){
         this.codigoPix = codigoPix;
     }
 
