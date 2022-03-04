@@ -10,8 +10,10 @@ import Modelo.Eletrodomesticos;
 import Modelo.Eletronicos;
 import Modelo.Fornecedor;
 import Modelo.LojaDepartamento;
+import Modelo.Produto;
 import Modelo.Vestuario;
 import java.util.Calendar;
+import java.util.Iterator;
 
 /**
  *
@@ -51,5 +53,110 @@ public class ControladorProduto {
         Vestuario vestuario = new Vestuario(codigoProduto, nome, descricao, dataFabricacao,
             valor, fornecedor, disponivel);
         LojaDepartamento.getProdutos().add(vestuario);
+    }
+    
+    public Iterator<Produto> retornaProdutos(){
+        
+        //Padrão Iterator!
+        Iterator<Produto> iterator = LojaDepartamento.getProdutos().iterator();
+        return(iterator);
+    }
+    
+    public Object[][] retornarRelatorioProdutos(){
+        
+        int cont = 0;
+        Object[][] linha = new Object[LojaDepartamento.getProdutos().size()][3];
+        Iterator<Produto> iterator = LojaDepartamento.getProdutos().iterator();
+        
+        while(iterator.hasNext()){
+            Produto produto = iterator.next();
+            
+            linha[cont][0] = produto.getCodigoProduto();
+            linha[cont][1] = produto.getNome();
+            linha[cont][2] = produto.calcularValor();
+            cont++;
+        }
+        
+        return(linha);
+    }
+        
+    public Object[][] retornarRelatorioAlimentacao(){
+        
+        int cont = 0;
+        Object[][] linha = new Object[LojaDepartamento.getProdutos().size()][3];
+        Iterator<Produto> iterator = LojaDepartamento.getProdutos().iterator();
+        
+        while(iterator.hasNext()){
+            Produto produto = iterator.next();
+            
+            if(produto instanceof Alimentacao){
+                linha[cont][0] = produto.getCodigoProduto();
+                linha[cont][1] = produto.getNome();
+                linha[cont][2] = produto.calcularValor();
+                cont++;  
+            }
+        }
+        
+        return(linha);
+    }
+    
+    public Object[][] retornarRelatorioEletronicos(){
+        
+        int cont = 0;
+        Object[][] linha = new Object[LojaDepartamento.getProdutos().size()][3];
+        Iterator<Produto> iterator = LojaDepartamento.getProdutos().iterator();
+        
+        while(iterator.hasNext()){
+            Produto produto = iterator.next();
+            
+            if(produto instanceof Eletronicos){
+                linha[cont][0] = produto.getCodigoProduto();
+                linha[cont][1] = produto.getNome();
+                linha[cont][2] = produto.calcularValor();
+                cont++;  
+            }
+        }
+        
+        return(linha);
+    }
+    
+    public Object[][] retornarRelatorioEletrodomesticos(){
+        
+        int cont = 0;
+        Object[][] linha = new Object[LojaDepartamento.getProdutos().size()][3];
+        Iterator<Produto> iterator = LojaDepartamento.getProdutos().iterator();
+        
+        while(iterator.hasNext()){
+            Produto produto = iterator.next();
+            
+            if(produto instanceof Eletrodomesticos){
+                linha[cont][0] = produto.getCodigoProduto();
+                linha[cont][1] = produto.getNome();
+                linha[cont][2] = produto.calcularValor();
+                cont++;  
+            }
+        }
+        
+        return(linha);
+    }
+    
+    public Object[][] retornarRelatorioVestuario(){
+        
+        int cont = 0;
+        Object[][] linha = new Object[LojaDepartamento.getProdutos().size()][3];
+        Iterator<Produto> iterator = LojaDepartamento.getProdutos().iterator();
+        
+        while(iterator.hasNext()){
+            Produto produto = iterator.next();
+            
+            if(produto instanceof Vestuario){
+                linha[cont][0] = produto.getCodigoProduto();
+                linha[cont][1] = produto.getNome();
+                linha[cont][2] = produto.calcularValor();
+                cont++;  
+            }
+        }
+        
+        return(linha);
     }
 }
