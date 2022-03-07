@@ -5,13 +5,10 @@
  */
 package Modelo;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Felipe de Freitas
  */
-public interface OrdenacaoStrategy {
+class Int {
     
-    public ArrayList<Produto> executarOrdenacao(Produto[] produtos);
 }

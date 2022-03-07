@@ -6,12 +6,16 @@
 package Controlador;
 
 import Modelo.Alimentacao;
+import Modelo.Contexto;
 import Modelo.Eletrodomesticos;
 import Modelo.Eletronicos;
 import Modelo.Fornecedor;
 import Modelo.LojaDepartamento;
 import Modelo.Produto;
+import Modelo.StrategyOrdenacaoA;
+import Modelo.StrategyOrdenacaoB;
 import Modelo.Vestuario;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -158,5 +162,23 @@ public class ControladorProduto {
         }
         
         return(linha);
+    }
+    
+    public ArrayList<Produto> retornarRelatorioProdutosOrdenadosA(){
+        Contexto contexto = new Contexto();
+         
+        contexto.setStrategy(new StrategyOrdenacaoA());
+        Produto[] produtos = (Produto[]) LojaDepartamento.getProdutos().toArray();
+        
+        return contexto.executarStrategy(produtos);       
+    }
+    
+    public ArrayList<Produto> retornarRelatorioProdutosOrdenadosB(){
+        Contexto contexto = new Contexto();
+         
+        contexto.setStrategy(new StrategyOrdenacaoB());
+        Produto[] produtos = (Produto[]) LojaDepartamento.getProdutos().toArray();
+        
+        return contexto.executarStrategy(produtos);  
     }
 }

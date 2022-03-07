@@ -6,14 +6,41 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
  * @author Felipe de Freitas
  */
 public class StrategyOrdenacaoA implements OrdenacaoStrategy{
+    //private Produto produtos[];
+    private static ArrayList<Produto> produtosOrdenados = new ArrayList();;
+    //private int cont;
     
     @Override
-    public void executarOrdenacao(ArrayList<Produto> produtos){
+    public ArrayList<Produto> executarOrdenacao(Produto[] produtos){
+        /**
+        for(Produto produto : produtosGeral){
+            produtos[cont] = produto;
+            cont++;
+        }
+        */
+        boolean troca = true;
+        Produto aux;
+        while (troca) {
+            troca = false;
+            for (int i = 0; i < produtos.length - 1; i++) {
+                if (produtos[i].calcularValor() > produtos[i + 1].calcularValor()) {
+                    aux = produtos[i];
+                    produtos[i] = produtos[i + 1];
+                    produtos[i + 1] = aux;
+                    troca = true;
+                }
+            }
+        }
+        
+        produtosOrdenados.addAll(Arrays.asList(produtos));
+        
+        return produtosOrdenados;
     }
 }

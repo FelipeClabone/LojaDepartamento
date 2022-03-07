@@ -15,10 +15,10 @@ import java.util.Iterator;
  */
 public class LojaDepartamento {
     private String nomeLoja;
-    private static ArrayList<Venda> vendas = new ArrayList();;
-    private static ArrayList<Produto> produtos = new ArrayList();;
-    private static ArrayList<Fornecedor> fornecedores = new ArrayList();;
-    private static ArrayList<Usuario> usuarios = new ArrayList();;
+    private static ArrayList<Venda> vendas = new ArrayList();
+    private static ArrayList<Produto> produtos = new ArrayList();
+    private static ArrayList<Fornecedor> fornecedores = new ArrayList();
+    private static ArrayList<Usuario> usuarios = new ArrayList();
     private String configuracoes; //TODO: tem q mudar para a classe Configuracao
 
     public LojaDepartamento(){}

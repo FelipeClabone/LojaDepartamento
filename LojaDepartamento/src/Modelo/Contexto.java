@@ -5,10 +5,20 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Felipe de Freitas
  */
 public class Contexto {
+    private OrdenacaoStrategy strategy;
+
+    public void setStrategy(OrdenacaoStrategy strategy) {
+        this.strategy = strategy;
+    }
     
+    public ArrayList<Produto> executarStrategy(Produto[] produtos){
+        return strategy.executarOrdenacao(produtos);
+    }
 }
