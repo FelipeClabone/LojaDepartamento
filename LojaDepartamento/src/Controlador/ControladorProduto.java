@@ -9,6 +9,7 @@ import Modelo.Alimentacao;
 import Modelo.Contexto;
 import Modelo.Eletrodomesticos;
 import Modelo.Eletronicos;
+import Modelo.FactoryProduto;
 import Modelo.Fornecedor;
 import Modelo.LojaDepartamento;
 import Modelo.Produto;
@@ -27,36 +28,12 @@ public class ControladorProduto {
     
     public ControladorProduto(){}
     
-    public void addAlimentacao(int codigoProduto, String nome, String descricao, 
+    public void addProduto(int codigoProduto, String nome, String descricao, 
             Calendar dataFabricacao, float valor, Fornecedor fornecedor, 
-            boolean disponivel){
-        Alimentacao alimentacao = new Alimentacao(codigoProduto, nome, descricao, dataFabricacao,
-            valor, fornecedor, disponivel);
-        LojaDepartamento.getProdutos().add(alimentacao);
-    }
-    
-    public void addEletrodomesticos(int codigoProduto, String nome, String descricao, 
-            Calendar dataFabricacao, float valor, Fornecedor fornecedor, 
-            boolean disponivel){
-        Eletrodomesticos eletrodomesticos = new Eletrodomesticos(codigoProduto, nome, descricao, dataFabricacao,
-            valor, fornecedor, disponivel);
-        LojaDepartamento.getProdutos().add(eletrodomesticos);
-    }
-    
-    public void addEletronicos(int codigoProduto, String nome, String descricao, 
-            Calendar dataFabricacao, float valor, Fornecedor fornecedor, 
-            boolean disponivel){
-        Eletronicos eletronicos = new Eletronicos(codigoProduto, nome, descricao, dataFabricacao,
-            valor, fornecedor, disponivel);
-        LojaDepartamento.getProdutos().add(eletronicos);
-    }
-    
-    public void addVestuario(int codigoProduto, String nome, String descricao, 
-            Calendar dataFabricacao, float valor, Fornecedor fornecedor, 
-            boolean disponivel){
-        Vestuario vestuario = new Vestuario(codigoProduto, nome, descricao, dataFabricacao,
-            valor, fornecedor, disponivel);
-        LojaDepartamento.getProdutos().add(vestuario);
+            boolean disponivel, String tipo){
+        Produto produto = FactoryProduto.factoryMethod(codigoProduto, nome, 
+                descricao, dataFabricacao, valor, fornecedor, disponivel, tipo);
+        LojaDepartamento.getProdutos().add(produto);
     }
     
     public Iterator<Produto> retornaProdutos(){

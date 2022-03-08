@@ -88,27 +88,16 @@ public class ControladorVendas {
         return(linha);
     }
     
-    public Object[][] retornarVendasMesEspecifico(int codigoCliente){
+    public Object[][] retornarVendasMesEspecifico(int mes){
         
         int cont = 0;
         Object[][] linha = new Object[LojaDepartamento.getProdutos().size()][3];
         Iterator<Venda> iterator = LojaDepartamento.getVendas().iterator();
-        Iterator<Usuario> iteratorUsuario = LojaDepartamento.getUsuarios().iterator();
-        
-        Usuario usuarioPrincipal = null;
-        while(iteratorUsuario.hasNext()){
-            Usuario usuario = iteratorUsuario.next();
-            
-            if(usuario.getCodigoUsuario() == codigoCliente){
-                usuarioPrincipal = usuario;
-            }
-            
-        }
         
         while(iterator.hasNext()){
             Venda venda = iterator.next();
             
-            if(venda.getCliente().equals(usuarioPrincipal)){ //ALTERAR ESSE IF PARA COMPARAR OS MESES
+            if(venda.getDataVenda().get(Calendar.MONTH) == mes - 2){ //ALTERAR ESSE IF PARA COMPARAR OS MESES
                 linha[cont][0] = venda.getCodigoVenda();
                 linha[cont][1] = venda.getValorTotal();
                 linha[cont][2] = venda.getVendedor();
