@@ -22,6 +22,10 @@ public class ItemVenda {
         this.quantidade = quantidade;
     }
 
+    public float calcularValor(){
+        return quantidade*valor;
+    }
+    
     public int getCodigoProduto() {
         return codigoProduto;
     }

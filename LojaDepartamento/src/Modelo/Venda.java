@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -16,7 +17,7 @@ public class Venda {
     private Cliente cliente;
     private Vendedor vendedor;
     private Calendar dataVenda;
-    //private ArrayList<ItemVenda> itensVenda
+    private static ArrayList<ItemVenda> itensVenda = new ArrayList();
     private float valorTotal;
     private float valorDesconto;
     private Pagamento formaPagamento;
@@ -34,6 +35,24 @@ public class Venda {
         this.formaPagamento = formaPagamento;
     }
 
+    public static void addItemVenda(int codigoProduto, float valor, int quantidade){
+        ItemVenda item = new ItemVenda(codigoProduto, valor, quantidade);
+        Venda.itensVenda.add(item);
+    }
+    
+    public float calcularValorTotal(){
+        float valorTotal = 0;
+        for(ItemVenda item : itensVenda){
+            valorTotal = item.calcularValor();
+        }
+        
+        if(cliente.isClienteOuro() == true){
+            valorTotal = (float) (valorTotal - valorTotal*0.02);
+        }
+        
+        return valorTotal;
+    }
+            
     public int getCodigoVenda() {
         return codigoVenda;
     }
@@ -88,5 +107,13 @@ public class Venda {
 
     public void setFormaPagamento(Pagamento formaPagamento) {
         this.formaPagamento = formaPagamento;
+    }
+    
+    public ArrayList<ItemVenda> getItensVenda() {
+        return itensVenda;
+    }
+
+    public void setItensVenda(ArrayList<ItemVenda> itensVenda) {
+        this.itensVenda = itensVenda;
     }
 }

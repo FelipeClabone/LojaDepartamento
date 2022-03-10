@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.Alimentacao;
+import Modelo.Cliente;
 import Modelo.Contexto;
 import Modelo.Eletrodomesticos;
 import Modelo.Eletronicos;
@@ -15,6 +16,7 @@ import Modelo.LojaDepartamento;
 import Modelo.Produto;
 import Modelo.StrategyOrdenacaoA;
 import Modelo.StrategyOrdenacaoB;
+import Modelo.Usuario;
 import Modelo.Vestuario;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +36,20 @@ public class ControladorProduto {
         Produto produto = FactoryProduto.factoryMethod(codigoProduto, nome, 
                 descricao, dataFabricacao, valor, fornecedor, disponivel, tipo);
         LojaDepartamento.getProdutos().add(produto);
+    }
+    
+    public Produto buscaProduto(int codigo){
+    //Padrão Iterator!
+        Iterator<Produto> iterator = LojaDepartamento.getProdutos().iterator();
+        while (iterator.hasNext()) {
+
+            Produto produto = iterator.next();
+
+            if(produto.getCodigoProduto() == codigo){
+                return produto;
+            }
+        }
+        return(null);
     }
     
     public Iterator<Produto> retornaProdutos(){
