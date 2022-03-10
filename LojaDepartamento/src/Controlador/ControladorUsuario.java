@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.Cliente;
+import Modelo.Fornecedor;
 import Modelo.LojaDepartamento;
 import Modelo.Usuario;
 import Modelo.Vendedor;
@@ -29,6 +30,20 @@ public class ControladorUsuario {
         LojaDepartamento.getUsuarios().add(cliente);
     }
     
+    public Cliente buscaCliente(int codigo){
+    //Padrão Iterator!
+        Iterator<Usuario> iterator = LojaDepartamento.getUsuarios().iterator();
+        while (iterator.hasNext()) {
+
+            Usuario usuario = iterator.next();
+
+            if(usuario.getCodigoUsuario() == codigo){
+                return(Cliente) (usuario);
+            }
+        }
+        return(null);
+    }
+    
     public void addVendedor(int codigoUsuario, String nome, String cpf, String rg,
             Calendar dataNascimento, String endereco, String cep, String email,
             float salario, String pis, Calendar dataAdmissao){
@@ -37,10 +52,26 @@ public class ControladorUsuario {
         LojaDepartamento.getUsuarios().add(vendedor);
     }
     
+    public Vendedor buscaVendedor(int codigo){
+    //Padrão Iterator!
+        Iterator<Usuario> iterator = LojaDepartamento.getUsuarios().iterator();
+        while (iterator.hasNext()) {
+
+            Usuario usuario = iterator.next();
+
+            if(usuario.getCodigoUsuario() == codigo){
+                return(Vendedor) (usuario);
+            }
+        }
+        return(null);
+    }
+    
+    
     public Object[][] retornarRelatorioCliente(){
+  
         
         int cont = 0;
-        Object[][] linha = new Object[LojaDepartamento.getProdutos().size()][4];
+        Object[][] linha = new Object[LojaDepartamento.getUsuarios().size()][4];
         Iterator<Usuario> iterator = LojaDepartamento.getUsuarios().iterator();
         
         while(iterator.hasNext()){
@@ -54,6 +85,7 @@ public class ControladorUsuario {
                 cont++;  
             }
         }
+        
         
         return(linha);
     }

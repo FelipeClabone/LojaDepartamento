@@ -5,8 +5,10 @@
  */
 package Controlador;
 
+import Modelo.Cliente;
 import Modelo.Fornecedor;
 import Modelo.LojaDepartamento;
+import Modelo.Usuario;
 import java.util.Iterator;
 
 /**
@@ -22,6 +24,42 @@ public class ControladorFornecedor {
         Fornecedor fornecedor = new Fornecedor(codigoFornecedor, cnpj, nome,
             descricao, email, telefone, endereco);
         LojaDepartamento.getFornecedores().add(fornecedor);
+    }
+    
+    public Object[][] retornarRelatorioFornecedor(){
+
+        int cont = 0;
+        Object[][] linha = new Object[LojaDepartamento.getFornecedores().size()][3];
+        Iterator<Fornecedor> iterator = LojaDepartamento.getFornecedores().iterator();
+
+        while(iterator.hasNext()){
+            Fornecedor fornecedor = iterator.next();
+
+            if(fornecedor instanceof Fornecedor){
+                linha[cont][0] = fornecedor.getCodigoFornecedor();
+                linha[cont][1] = fornecedor.getNome();
+                linha[cont][2] = fornecedor.getCnpj();
+   
+                cont++;  
+            }
+        }
+
+
+        return(linha);
+    }
+    
+    public Fornecedor buscaFornecedor(int codigo){
+        //Padrão Iterator!
+        Iterator<Fornecedor> iterator = LojaDepartamento.getFornecedores().iterator();
+        while (iterator.hasNext()) {
+            
+            Fornecedor fornecedor = iterator.next();
+            
+            if(fornecedor.getCodigoFornecedor() == codigo){
+                return(fornecedor);
+            }
+        }
+        return(null);
     }
     
     public Iterator<Fornecedor> retornarFornecedor(){
