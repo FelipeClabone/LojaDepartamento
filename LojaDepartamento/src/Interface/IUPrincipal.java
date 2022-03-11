@@ -37,16 +37,8 @@ public class IUPrincipal extends javax.swing.JFrame {
         
         
         //Titulo da aplicação
-        this.setTitle("Spartan Library");
-        
-        
-        //icone da aplicação
-        try{
-            Image icon = Toolkit.getDefaultToolkit().getImage("src/view/imagens/spartanlogo.png");
-            setIconImage(icon);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(rootPane, e, "ERRO", 0);
-        }
+        this.setTitle("Lojinha da Lina");
+
         
         //Adicionando data a interface principal
         Calendar dataDoSistema = Calendar.getInstance();
@@ -83,6 +75,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -186,13 +179,21 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenuItem6.setText("Mais vendidos");
         jMenu1.add(jMenuItem6);
 
-        jMenuItem7.setText("Ordenados por valor");
+        jMenuItem7.setText("Ordenados por valor (A)");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem7);
+
+        jMenuItem20.setText("Ordenados por valor (B)");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem20);
 
         menuPrincipal.add(jMenu1);
 
@@ -242,6 +243,11 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenu4.setText("Vendas");
 
         jMenuItem13.setText("Históricos de vendas por cliente");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem13);
 
         jMenuItem14.setText("Vendas realizadas");
@@ -469,17 +475,30 @@ public class IUPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
         // TODO add your handling code here:
-        
+        IURelatorioVendaMes cadastro = new IURelatorioVendaMes(this,true);
+        cadastro.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
-        IURelatorioProdutoOrdenado cadastro = new IURelatorioProdutoOrdenado(this,true);
+        IURelatorioProdutoOrdenadoA cadastro = new IURelatorioProdutoOrdenadoA(this,true);
         cadastro.setVisible(true);
         
         
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        // TODO add your handling code here:
+        IURelatorioProdutoOrdenadoB cadastro = new IURelatorioProdutoOrdenadoB(this,true);
+        cadastro.setVisible(true);
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+        IURelatorioVendaCliente cadastro = new IURelatorioVendaCliente(this,true);
+        cadastro.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -537,6 +556,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;

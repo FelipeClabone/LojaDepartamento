@@ -185,20 +185,27 @@ public class IUCadastroFornecedor extends javax.swing.JDialog {
                     "Atenção", JOptionPane.WARNING_MESSAGE);
             textCodigo.setText("");
         } else {
+            if(control.buscaFornecedor(Integer.parseInt(codigoFornecedor)) == null){
+                control.addFornecedor(Integer.parseInt(codigoFornecedor), cnpj, nome, descricao, email, telefone, endereco);
             
-            control.addFornecedor(Integer.parseInt(codigoFornecedor), cnpj, nome, descricao, email, telefone, endereco);
+                JOptionPane.showMessageDialog(this, "Fornecedor cadastrado com sucesso!",
+                        "Sucesso", JOptionPane.WARNING_MESSAGE);
+
+                textCodigo.setText("");
+                textNome.setText("");
+                textCNPJ.setText("");
+                textEndereco.setText("");         
+                textEmail.setText("");
+                textTelefone.setText("");
+                textDescricao.setText("");
             
-            JOptionPane.showMessageDialog(this, "Fornecedor cadastrado com sucesso!",
-                    "Sucesso", JOptionPane.WARNING_MESSAGE);
             
-            textCodigo.setText("");
-            textNome.setText("");
-            textCNPJ.setText("");
-            textEndereco.setText("");         
-            textEmail.setText("");
-            textTelefone.setText("");
-            textDescricao.setText("");
-            
+            }else{
+                JOptionPane.showMessageDialog(this, "Código do fornecedor já está sendo utilizado!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+                textCodigo.setText("");
+            }
+
         }
        
     }//GEN-LAST:event_btnSalvarActionPerformed

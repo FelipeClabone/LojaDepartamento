@@ -56,7 +56,7 @@ public class IUCadastroCliente extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro vendedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 51, 0))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 51, 0))); // NOI18N
 
         jLabel1.setText("Código:");
 
@@ -118,7 +118,7 @@ public class IUCadastroCliente extends javax.swing.JDialog {
                             .addComponent(textCEP, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(textEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
                     .addComponent(textOuro))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,13 +173,10 @@ public class IUCadastroCliente extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSalvar)))
+                .addContainerGap(301, Short.MAX_VALUE)
+                .addComponent(btnSalvar)
                 .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,21 +235,28 @@ public class IUCadastroCliente extends javax.swing.JDialog {
                     "Atenção", JOptionPane.WARNING_MESSAGE);
             textCodigo.setText("");
         } else {
-            
-            control.addCliente(Integer.parseInt(codigo), nome, cpf, rg, dataNascimento, endereco, cep, email,clienteOuro);
-            //control.retornarRelatorioCliente();
-            
-            JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!",
-                    "Sucesso", JOptionPane.WARNING_MESSAGE);
-            
+            if(control.buscaCliente(Integer.parseInt(codigo)) == null){
+                control.addCliente(Integer.parseInt(codigo), nome, cpf, rg, dataNascimento, endereco, cep, email,clienteOuro);
+                //control.retornarRelatorioCliente();
+
+                JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!",
+                        "Sucesso", JOptionPane.WARNING_MESSAGE);
+
+                textCodigo.setText("");
+                textNome.setText("");
+                textCPF.setText("");
+                textRg.setText("");
+                textNascimento.setText("");
+                textEndereco.setText("");
+                textCEP.setText("");
+                textEmail.setText("");
+
+            }else{
+                JOptionPane.showMessageDialog(this, "Código do cliente já está sendo utilizado!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
             textCodigo.setText("");
-            textNome.setText("");
-            textCPF.setText("");
-            textRg.setText("");
-            textNascimento.setText("");
-            textEndereco.setText("");
-            textCEP.setText("");
-            textEmail.setText("");
+            }
+            
             
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

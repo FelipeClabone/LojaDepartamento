@@ -153,7 +153,7 @@ public class IURelatorioVendaMes extends javax.swing.JDialog {
         
 
             DefaultTableModel modelo = (DefaultTableModel) produto_Table.getModel();
-            for(int cont = 0; cont < controle.retornarVendasClienteEspecifico(Integer.parseInt(mes)).length; cont++){
+            for(int cont = 0; cont < controle.retornarVendasMesEspecifico(Integer.parseInt(mes)).length; cont++){
                 modelo.addRow(linha[cont]);
             }
             

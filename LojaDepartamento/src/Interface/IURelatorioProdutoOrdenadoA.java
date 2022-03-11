@@ -5,20 +5,23 @@
 package Interface;
 
 import Controlador.ControladorProduto;
+import Modelo.Produto;
+
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
  * @author lucas
  */
-public class IURelatorioProduto extends javax.swing.JDialog {
+public class IURelatorioProdutoOrdenadoA extends javax.swing.JDialog {
 
     /**
      * Creates new form IURelatorioCliente
      */
-    public IURelatorioProduto(java.awt.Frame parent, boolean modal) {
+    public IURelatorioProdutoOrdenadoA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -43,13 +46,23 @@ public class IURelatorioProduto extends javax.swing.JDialog {
         
         //Requisição de dados ou relatório
         
+       
         
         ControladorProduto controle = new ControladorProduto();
+        ArrayList<Produto> produtos = controle.retornarRelatorioProdutosOrdenadosB();
+
         Object [][] linha = controle.retornarRelatorioProdutos();
-        
+        int cont = 0;
+        for(Produto produto : produtos){
+            linha[cont][0] = produto.getCodigoProduto();
+            linha[cont][1] = produto.getNome();
+            linha[cont][2] = produto.calcularValor();
+            cont++;
+        }
+
         DefaultTableModel modelo = (DefaultTableModel) produto_Table.getModel();
-        for(int cont = 0; cont < controle.retornarRelatorioProdutos().length; cont++){
-            modelo.addRow(linha[cont]);
+        for(int i = 0; i < produtos.size(); i++){
+            modelo.addRow(linha[i]);
         }
     }
 
@@ -122,14 +135,38 @@ public class IURelatorioProduto extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IURelatorioProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IURelatorioProdutoOrdenadoA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IURelatorioProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IURelatorioProdutoOrdenadoA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IURelatorioProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IURelatorioProdutoOrdenadoA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IURelatorioProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IURelatorioProdutoOrdenadoA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -142,7 +179,7 @@ public class IURelatorioProduto extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                IURelatorioProduto dialog = new IURelatorioProduto(new javax.swing.JFrame(), true);
+                IURelatorioProdutoOrdenadoA dialog = new IURelatorioProdutoOrdenadoA(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

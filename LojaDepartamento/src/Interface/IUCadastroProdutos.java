@@ -272,18 +272,23 @@ public class IUCadastroProdutos extends javax.swing.JDialog {
             if(controlFornecedor.buscaFornecedor(Integer.parseInt(codigoFornecedor)) == null){
                 JOptionPane.showMessageDialog(this, "Não foi encontrado o fornecedor!", "Atenção", JOptionPane.WARNING_MESSAGE);
             }else{
-                Fornecedor fornecedor = controlFornecedor.buscaFornecedor(Integer.parseInt(codigoFornecedor));
-                control.addProduto(Integer.parseInt(codigoProduto), nome, descricao, dataFabricacao, Float.parseFloat(valor), fornecedor, disponivel,tipoProduto);
-               
-                JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!",
-                    "Sucesso", JOptionPane.WARNING_MESSAGE);
-                
-                textCodigo.setText("");
-                textNome.setText("");
-                textValor.setText("");
-                textDescricao.setText("");
-                textFornecedor.setText("");
-                textFabricacao.setText("");
+                if(control.buscaProduto(Integer.parseInt(codigoProduto)) == null){
+                    Fornecedor fornecedor = controlFornecedor.buscaFornecedor(Integer.parseInt(codigoFornecedor));
+                    control.addProduto(Integer.parseInt(codigoProduto), nome, descricao, dataFabricacao, Float.parseFloat(valor), fornecedor, disponivel,tipoProduto);
+
+                    JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!",
+                        "Sucesso", JOptionPane.WARNING_MESSAGE);
+
+                    textCodigo.setText("");
+                    textNome.setText("");
+                    textValor.setText("");
+                    textDescricao.setText("");
+                    textFornecedor.setText("");
+                    textFabricacao.setText("");
+                }else{
+                    JOptionPane.showMessageDialog(this, "Código do produto já está sendo utilizado!",
+                        "Atenção!", JOptionPane.WARNING_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

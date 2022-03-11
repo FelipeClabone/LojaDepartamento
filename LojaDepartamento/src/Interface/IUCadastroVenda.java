@@ -129,32 +129,28 @@ public class IUCadastroVenda extends javax.swing.JDialog {
                                         .addComponent(jLabel2))
                                     .addComponent(jLabel6))
                                 .addGap(24, 24, 24)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(textDesconto)
-                                        .addGap(156, 156, 156))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(textDataVenda)
-                                            .addComponent(textCliente)
-                                            .addComponent(textCodigo)
-                                            .addComponent(textVendedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(textValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textDataVenda)
+                                    .addComponent(textCliente)
+                                    .addComponent(textCodigo)
+                                    .addComponent(textVendedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(textValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(textDesconto))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel11))
                                 .addGap(18, 18, 18)
                                 .addComponent(textPagamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(79, Short.MAX_VALUE))
+                        .addContainerGap(114, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(textNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(textNome, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
                         .addComponent(textBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(114, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +296,7 @@ public class IUCadastroVenda extends javax.swing.JDialog {
         
        
         ControladorUsuario controlCliente = new ControladorUsuario();
-                
+        ControladorVendas control = new ControladorVendas();        
         ControladorUsuario controlVendedor = new ControladorUsuario();
               
         String data = this.textDataVenda.getText();
@@ -319,7 +315,7 @@ public class IUCadastroVenda extends javax.swing.JDialog {
         String ValorDesconto =this.textDesconto.getText();
         
         String formaPagamento = String.valueOf(this.textPagamento.getSelectedItem());
- 
+        
         
         //Tratamento de erros
         
@@ -344,57 +340,62 @@ public class IUCadastroVenda extends javax.swing.JDialog {
             }else if(controlVendedor.buscaVendedor(Integer.parseInt(codigoVendedor)) == null){
                 JOptionPane.showMessageDialog(this, "Não foi encontrado o vendedor!", "Atenção", JOptionPane.WARNING_MESSAGE);
             }else{
-                Vendedor vendedor = controlCliente.buscaVendedor(Integer.parseInt(codigoVendedor));
-                Cliente cliente = controlCliente.buscaCliente(Integer.parseInt(codigoCliente));
-                
-                if( formaPagamento == "Pix"){
-                    Pix pix = new Pix();
+                if(control.buscaVenda(Integer.parseInt(codigoVenda))== null){
+                    Vendedor vendedor = controlCliente.buscaVendedor(Integer.parseInt(codigoVendedor));
+                    Cliente cliente = controlCliente.buscaCliente(Integer.parseInt(codigoCliente));
 
-                    ControladorVendas control = new ControladorVendas();
-                    control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),pix);
-                    Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
-                    for(ItemVenda item : itensVenda){
-                        venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
-                    }
-                }
-                else if(formaPagamento == "Dinheiro"){
-                    Dinheiro dinheiro = new Dinheiro();
+                    if( formaPagamento == "Pix"){
 
-                    ControladorVendas control = new ControladorVendas();
-                    control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),dinheiro);
-                    Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
-                    for(ItemVenda item : itensVenda){
-                        venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
-                    }  
-                }
-                else if(formaPagamento == "Cartão"){
+                        Pix pix = new Pix();
 
-                    String nome = textNome.getName();
-                    String bandeira = textBandeira.getName();
-                    String numero = textNumero.getName();
-
-                    CartaoCredito cartao = new CartaoCredito(nome,bandeira,numero);
-
-                    ControladorVendas control = new ControladorVendas();
-                    control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),cartao);
-                    Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
-                    for(ItemVenda item : itensVenda){
-                        venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
-                    }  
-                }
-                
-                JOptionPane.showMessageDialog(this, "Venda cadastrado com sucesso!",
-                    "Sucesso", JOptionPane.WARNING_MESSAGE);
-    
-                textCodigo.setText("");
-                textValor.setText("");
-                textVendedor.setText("");
-                textCliente.setText("");
-                textDesconto.setText("");
-                textNome.setText("");
-                textBandeira.setText("");
-                textNumero.setText("");
                         
+                        control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),pix);
+                        Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
+                        for(ItemVenda item : itensVenda){
+                            venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
+                        }
+                    }
+                    else if(formaPagamento == "Dinheiro"){
+                        Dinheiro dinheiro = new Dinheiro();
+
+                       
+                        control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),dinheiro);
+                        Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
+                        for(ItemVenda item : itensVenda){
+                            venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
+                        }  
+                    }
+                    else if(formaPagamento == "Cartão"){
+
+                        String nome = textNome.getName();
+                        String bandeira = textBandeira.getName();
+                        String numero = textNumero.getName();
+
+                        CartaoCredito cartao = new CartaoCredito(nome,bandeira,numero);
+
+                       
+                        control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),cartao);
+                        Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
+                        for(ItemVenda item : itensVenda){
+                            venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
+                        }  
+                    }
+
+                    JOptionPane.showMessageDialog(this, "Venda cadastrado com sucesso!",
+                        "Sucesso", JOptionPane.WARNING_MESSAGE);
+
+                    textCodigo.setText("");
+                    textValor.setText("");
+                    textVendedor.setText("");
+                    textCliente.setText("");
+                    textDesconto.setText("");
+                    textNome.setText("");
+                    textBandeira.setText("");
+                    textNumero.setText("");
+                }else{
+                    JOptionPane.showMessageDialog(this, "Código da venda já está sendo utilizado!",
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+                }
             }
         }
         
