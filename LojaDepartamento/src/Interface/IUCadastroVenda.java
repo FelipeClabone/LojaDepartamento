@@ -4,19 +4,33 @@
  */
 package Interface;
 
+import Controlador.ControladorProduto;
 import Controlador.ControladorUsuario;
 import Controlador.ControladorVendas;
+import Interface.Utils.Utils;
+import Modelo.CartaoCredito;
 import Modelo.Cliente;
+import Modelo.Dinheiro;
+import Modelo.Fornecedor;
+import Modelo.ItemVenda;
+import Modelo.Pix;
+import Modelo.Produto;
+import Modelo.Venda;
 import Modelo.Vendedor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author lucas
  */
 public class IUCadastroVenda extends javax.swing.JDialog {
+    
+    private  ArrayList<ItemVenda> itensVenda = new ArrayList();
+    private float valorTotal = 0;
 
     /**
      * Creates new form IUCadastrovenda
@@ -44,14 +58,24 @@ public class IUCadastroVenda extends javax.swing.JDialog {
         textVendedor = new javax.swing.JTextField();
         textDataVenda = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        textValor = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         textDesconto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         textPagamento = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        textNome = new javax.swing.JTextField();
+        textBandeira = new javax.swing.JTextField();
+        textNumero = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        textValor = new javax.swing.JLabel();
         BtnSalvar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        textCodigoItem = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        textQtd = new javax.swing.JTextField();
+        btnAdicionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -67,13 +91,23 @@ public class IUCadastroVenda extends javax.swing.JDialog {
 
         jLabel4.setText("Data da venda:");
 
-        jLabel6.setText("Valor total:");
-
         jLabel7.setText("Valor com desconto:");
 
         jLabel8.setText("Forma de pagamento:");
 
         textPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pix", "Dinheiro", "Cartão" }));
+
+        jLabel11.setText("Dados cartão:");
+
+        textNome.setText("Nome");
+
+        textBandeira.setText("Bandeira");
+
+        textNumero.setText("Numero");
+
+        jLabel6.setText("Valor total:");
+
+        textValor.setText("0.00");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,27 +118,43 @@ public class IUCadastroVenda extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2)))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textDesconto)
-                            .addComponent(textValor)
-                            .addComponent(textDataVenda)
-                            .addComponent(textCliente)
-                            .addComponent(textCodigo)
-                            .addComponent(textVendedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2))
+                                    .addComponent(jLabel6))
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(textDesconto)
+                                        .addGap(156, 156, 156))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(textDataVenda)
+                                            .addComponent(textCliente)
+                                            .addComponent(textCodigo)
+                                            .addComponent(textVendedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(textValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel11))
+                                .addGap(18, 18, 18)
+                                .addComponent(textPagamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(79, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(textNome, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
-                        .addComponent(textPagamento, 0, 147, Short.MAX_VALUE)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                        .addComponent(textBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,9 +177,9 @@ public class IUCadastroVenda extends javax.swing.JDialog {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(textValor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,7 +188,15 @@ public class IUCadastroVenda extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         BtnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -149,6 +207,54 @@ public class IUCadastroVenda extends javax.swing.JDialog {
             }
         });
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Adicionar Item"));
+
+        textCodigoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textCodigoItemActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Codigo item:");
+
+        jLabel10.setText("Quantidade:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
+                .addGap(63, 63, 63)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textCodigoItem)
+                    .addComponent(textQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textCodigoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(textQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,20 +262,30 @@ public class IUCadastroVenda extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnAdicionar)))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BtnSalvar)))
-                .addContainerGap())
+                        .addComponent(BtnSalvar))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAdicionar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(BtnSalvar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -177,19 +293,19 @@ public class IUCadastroVenda extends javax.swing.JDialog {
 
     private void BtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalvarActionPerformed
         // TODO add your handling code here:
-        int codigoVenda = Integer.parseInt(this.textCodigo.getText().trim());
-        int codigoCliente = Integer.parseInt(this.textCliente.getText().trim()); 
-        int codigoVendedor = Integer.parseInt(this.textVendedor.getText().trim()); 
+        String codigoVenda = this.textCodigo.getText();
+        String codigoCliente = this.textCliente.getText(); 
+        String codigoVendedor = this.textVendedor.getText();
+        
+        
        
         ControladorUsuario controlCliente = new ControladorUsuario();
-        Cliente cliente = controlCliente.buscaCliente(codigoCliente);
-        
+                
         ControladorUsuario controlVendedor = new ControladorUsuario();
-        Vendedor vendedor = controlCliente.buscaVendedor(codigoVendedor);
-        
+              
+        String data = this.textDataVenda.getText();
         Calendar dataVenda = Calendar.getInstance();
         try {
-            String data = this.textDataVenda.getText();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
             dataVenda.setTime(sdf.parse(data));
             System.out.println("ANO: " + dataVenda.get(Calendar.YEAR));
@@ -199,34 +315,115 @@ public class IUCadastroVenda extends javax.swing.JDialog {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        
-        float valorTotal = Float.parseFloat(this.textValor.getText().trim());
-        float ValorDesconto = Float.parseFloat(this.textDesconto.getText().trim());
+             
+        String ValorDesconto =this.textDesconto.getText();
         
         String formaPagamento = String.valueOf(this.textPagamento.getSelectedItem());
+ 
         
-        if( formaPagamento == "Pix"){
-            ControladorVendas control = new ControladorVendas();
-            //control.addVenda(codigoVenda, cliente, vendedor, dataVenda, valorTotal, ValorDesconto,);
-            
-        }
-        else if(formaPagamento == "Dinheiro"){
-            ControladorVendas control = new ControladorVendas();
-            //control.addVenda(codigoVenda, cliente, vendedor, dataVenda, valorTotal, ValorDesconto,);
-            
-        }
-        else if(formaPagamento == "Cartão"){
-            ControladorVendas control = new ControladorVendas();
-            //control.addVenda(codigoVenda, cliente, vendedor, dataVenda, valorTotal, ValorDesconto,);
-            
-        }
+        //Tratamento de erros
         
+        String[] values = {codigoVenda, codigoVendedor, codigoCliente,data, ValorDesconto};
         
-        
-        
+        if(Utils.hasNull(values)){
+            JOptionPane.showMessageDialog(this, "Todos os campos precisam ser preenchidos!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
        
+        } else if (!Utils.isInt(codigoVenda) && !Utils.isInt(codigoVendedor) && !Utils.isInt(codigoCliente)){
+            JOptionPane.showMessageDialog(this, "Código da venda , do vendedor e do cliente precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textCodigo.setText("");
+        } else if(!Utils.isFloat(ValorDesconto)){
+           JOptionPane.showMessageDialog(this, "O valor do desconto precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textValor.setText("");
+        } 
+        else {
+            if(controlCliente.buscaCliente(Integer.parseInt(codigoCliente)) == null){
+                JOptionPane.showMessageDialog(this, "Não foi encontrado o cliente!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            }else if(controlVendedor.buscaVendedor(Integer.parseInt(codigoVendedor)) == null){
+                JOptionPane.showMessageDialog(this, "Não foi encontrado o vendedor!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            }else{
+                Vendedor vendedor = controlCliente.buscaVendedor(Integer.parseInt(codigoVendedor));
+                Cliente cliente = controlCliente.buscaCliente(Integer.parseInt(codigoCliente));
+                
+                if( formaPagamento == "Pix"){
+                    Pix pix = new Pix();
+
+                    ControladorVendas control = new ControladorVendas();
+                    control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),pix);
+                    Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
+                    for(ItemVenda item : itensVenda){
+                        venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
+                    }
+                }
+                else if(formaPagamento == "Dinheiro"){
+                    Dinheiro dinheiro = new Dinheiro();
+
+                    ControladorVendas control = new ControladorVendas();
+                    control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),dinheiro);
+                    Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
+                    for(ItemVenda item : itensVenda){
+                        venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
+                    }  
+                }
+                else if(formaPagamento == "Cartão"){
+
+                    String nome = textNome.getName();
+                    String bandeira = textBandeira.getName();
+                    String numero = textNumero.getName();
+
+                    CartaoCredito cartao = new CartaoCredito(nome,bandeira,numero);
+
+                    ControladorVendas control = new ControladorVendas();
+                    control.addVenda(Integer.parseInt(codigoVenda), cliente, vendedor, dataVenda, valorTotal, Float.parseFloat(ValorDesconto),cartao);
+                    Venda venda = control.buscaVenda(Integer.parseInt(codigoVenda));
+                    for(ItemVenda item : itensVenda){
+                        venda.addItemVenda(item.getCodigoProduto(), item.getValor(),item.getQuantidade());
+                    }  
+                }
+                
+                JOptionPane.showMessageDialog(this, "Venda cadastrado com sucesso!",
+                    "Sucesso", JOptionPane.WARNING_MESSAGE);
+    
+                textCodigo.setText("");
+                textValor.setText("");
+                textVendedor.setText("");
+                textCliente.setText("");
+                textDesconto.setText("");
+                textNome.setText("");
+                textBandeira.setText("");
+                textNumero.setText("");
+                        
+            }
+        }
         
     }//GEN-LAST:event_BtnSalvarActionPerformed
+
+    private void textCodigoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCodigoItemActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        // TODO add your handling code here:
+        int codigo = Integer.parseInt(this.textCodigoItem.getText().trim());
+        int quantidade = Integer.parseInt(this.textQtd.getText().trim());
+        
+        System.out.println(codigo);
+
+        ControladorProduto controlProduto = new ControladorProduto();
+        Produto produto = controlProduto.buscaProduto(codigo);
+        ItemVenda item = new ItemVenda(codigo,produto.calcularValor(),quantidade);
+        
+        valorTotal = valorTotal + item.calcularValor();
+        
+        
+        
+        this.textValor.setText( Float.toString(valorTotal));
+  
+        itensVenda.add(item);
+
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,7 +470,10 @@ public class IUCadastroVenda extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnSalvar;
+    private javax.swing.JButton btnAdicionar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -281,13 +481,20 @@ public class IUCadastroVenda extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField textBandeira;
     private javax.swing.JTextField textCliente;
     private javax.swing.JTextField textCodigo;
+    private javax.swing.JTextField textCodigoItem;
     private javax.swing.JFormattedTextField textDataVenda;
     private javax.swing.JTextField textDesconto;
+    private javax.swing.JTextField textNome;
+    private javax.swing.JTextField textNumero;
     private javax.swing.JComboBox<String> textPagamento;
-    private javax.swing.JTextField textValor;
+    private javax.swing.JTextField textQtd;
+    private javax.swing.JLabel textValor;
     private javax.swing.JTextField textVendedor;
     // End of variables declaration//GEN-END:variables
 }

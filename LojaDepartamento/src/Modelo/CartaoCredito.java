@@ -14,7 +14,6 @@ public class CartaoCredito extends Pagamento{
     private String bandeira;
     private String numero;
     
-    public CartaoCredito(){}
     
     public CartaoCredito(String nome, String bandeira, String numero){
         this.nome = nome;

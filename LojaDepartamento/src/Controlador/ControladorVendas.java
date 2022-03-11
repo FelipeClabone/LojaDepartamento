@@ -11,6 +11,7 @@ import Modelo.Dinheiro;
 import Modelo.LojaDepartamento;
 import Modelo.Pagamento;
 import Modelo.Pix;
+import Modelo.Produto;
 import Modelo.Usuario;
 import Modelo.Venda;
 import Modelo.Vendedor;
@@ -55,6 +56,20 @@ public class ControladorVendas {
         }
         
         return(linha);
+    }
+    
+    public Venda buscaVenda(int codigo){
+    //Padrão Iterator!
+        Iterator<Venda> iterator = LojaDepartamento.getVendas().iterator();
+        while (iterator.hasNext()) {
+
+            Venda venda = iterator.next();
+
+            if(venda.getCodigoVenda() == codigo){
+                return venda;
+            }
+        }
+        return(null);
     }
     
     public Object[][] retornarVendasClienteEspecifico(int codigoCliente){

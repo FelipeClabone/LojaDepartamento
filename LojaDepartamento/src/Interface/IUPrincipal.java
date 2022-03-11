@@ -100,17 +100,10 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem20 = new javax.swing.JMenuItem();
-        jMenuItem21 = new javax.swing.JMenuItem();
-        jMenuItem22 = new javax.swing.JMenuItem();
-        jMenuItem23 = new javax.swing.JMenuItem();
         jMenuItem28 = new javax.swing.JMenuItem();
         jMenuItem25 = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
-        jMenuItem24 = new javax.swing.JMenuItem();
-        jMenuItem26 = new javax.swing.JMenuItem();
         jMenuItem27 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MenuPrincipal");
@@ -255,6 +248,11 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenu4.add(jMenuItem14);
 
         jMenuItem15.setText("Vendas realizadas por mês");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem15);
 
         jMenuItem16.setText("Vendas em dinheiro");
@@ -296,22 +294,6 @@ public class IUPrincipal extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem19);
 
-        jMenu7.setText("Produtos");
-
-        jMenuItem20.setText("Alimentos");
-        jMenu7.add(jMenuItem20);
-
-        jMenuItem21.setText("Eletrodoméstico");
-        jMenu7.add(jMenuItem21);
-
-        jMenuItem22.setText("Eletrônico");
-        jMenu7.add(jMenuItem22);
-
-        jMenuItem23.setText("Vestuario");
-        jMenu7.add(jMenuItem23);
-
-        jMenu6.add(jMenu7);
-
         jMenuItem28.setText("Produtos");
         jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,21 +310,6 @@ public class IUPrincipal extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem25);
 
-        jMenu8.setText("Cliente");
-
-        jMenuItem24.setText("Ouro");
-        jMenu8.add(jMenuItem24);
-
-        jMenuItem26.setText("Padrão");
-        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem26ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem26);
-
-        jMenu6.add(jMenu8);
-
         jMenuItem27.setText("Cliente");
         jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,6 +317,14 @@ public class IUPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu6.add(jMenuItem27);
+
+        jMenuItem29.setText("Venda");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem29ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem29);
 
         menuPrincipal.add(jMenu6);
 
@@ -374,7 +349,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         IURelatorioProduto cadastro = new IURelatorioProduto(this,true);
-        cadastro.setVisible(true);;
+        cadastro.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -387,32 +362,9 @@ public class IUPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
+        IURelatorioFornecedor cadastro = new IURelatorioFornecedor(this,true);
+        cadastro.setVisible(true);;
     }//GEN-LAST:event_jMenuItem8ActionPerformed
-
-    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
-        // TODO add your handling code here:      
-        IUCadastroVendedor cadastro = new IUCadastroVendedor(this, true);
-        cadastro.setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem25ActionPerformed
-
-    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
-        // TODO add your handling code here:
-        IUCadastroCliente cadastro = new IUCadastroCliente(this, true);
-        cadastro.setVisible(true);
-    }//GEN-LAST:event_jMenuItem27ActionPerformed
-
-    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        // TODO add your handling code here:
-        IUCadastroFornecedor cadastro = new IUCadastroFornecedor(this,true);
-        cadastro.setVisible(true);
-    }//GEN-LAST:event_jMenuItem19ActionPerformed
-
-    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
-        // TODO add your handling code here:
-        IUCadastroProdutos cadastro = new IUCadastroProdutos(this,true);
-        cadastro.setVisible(true);
-    }//GEN-LAST:event_jMenuItem28ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         // TODO add your handling code here:
@@ -429,12 +381,6 @@ public class IUPrincipal extends javax.swing.JFrame {
         cadastro.setVisible(true);
      
     }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
-        // TODO add your handling code here:
-        IURelatorioCliente cadastro = new IURelatorioCliente(this,true);
-        cadastro.setVisible(true);
-    }//GEN-LAST:event_jMenuItem26ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -484,6 +430,44 @@ public class IUPrincipal extends javax.swing.JFrame {
         cadastro.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+        // TODO add your handling code here:
+        IUCadastroVenda cadastro = new IUCadastroVenda(this,true);
+        cadastro.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem29ActionPerformed
+
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        // TODO add your handling code here:
+        IUCadastroCliente cadastro = new IUCadastroCliente(this, true);
+        cadastro.setVisible(true);
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        // TODO add your handling code here:
+        IUCadastroVendedor cadastro = new IUCadastroVendedor(this, true);
+        cadastro.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
+
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+        // TODO add your handling code here:
+        IUCadastroProdutos cadastro = new IUCadastroProdutos(this,true);
+        cadastro.setVisible(true);
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        // TODO add your handling code here:
+        IUCadastroFornecedor cadastro = new IUCadastroFornecedor(this,true);
+        cadastro.setVisible(true);
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -528,8 +512,6 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
@@ -542,15 +524,10 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem20;
-    private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem22;
-    private javax.swing.JMenuItem jMenuItem23;
-    private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
-    private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

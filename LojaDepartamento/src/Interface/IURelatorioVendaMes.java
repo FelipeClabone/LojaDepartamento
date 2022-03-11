@@ -6,6 +6,9 @@ package Interface;
 
 import Controlador.ControladorProduto;
 import Controlador.ControladorUsuario;
+import Controlador.ControladorVendas;
+import Interface.Utils.Utils;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -14,12 +17,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author lucas
  */
-public class IURelatorioProdutoEletrodomesticos extends javax.swing.JDialog {
+public class IURelatorioVendaMes extends javax.swing.JDialog {
 
     /**
      * Creates new form IURelatorioCliente
      */
-    public IURelatorioProdutoEletrodomesticos(java.awt.Frame parent, boolean modal) {
+    public IURelatorioVendaMes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -42,13 +45,7 @@ public class IURelatorioProdutoEletrodomesticos extends javax.swing.JDialog {
     
         
         //Requisição de dados ou relatório
-        ControladorProduto controle = new ControladorProduto();
-        Object [][] linha = controle.retornarRelatorioEletrodomesticos();
         
-        DefaultTableModel modelo = (DefaultTableModel) produto_Table.getModel();
-        for(int cont = 0; cont < controle.retornarRelatorioEletrodomesticos().length; cont++){
-            modelo.addRow(linha[cont]);
-        }
         
     }
 
@@ -63,6 +60,8 @@ public class IURelatorioProdutoEletrodomesticos extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         produto_Table = new javax.swing.JTable();
+        textCodigo = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -71,7 +70,7 @@ public class IURelatorioProdutoEletrodomesticos extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Nome", "Valor"
+                "Código", "Valor", "Vendedor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -84,25 +83,87 @@ public class IURelatorioProdutoEletrodomesticos extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(produto_Table);
 
+        textCodigo.setText("Mês");
+        textCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textCodigoActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(textCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void textCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCodigoActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String mes = this.textCodigo.getText();
+        
+        ControladorVendas controle = new ControladorVendas();
+        
+        //Tratamento de erro
+        String[] values = {mes};
+        if(Utils.hasNull(values)){
+            JOptionPane.showMessageDialog(this, "Todos os campos precisam ser preenchidos!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else if (!Utils.isInt(mes)){
+            JOptionPane.showMessageDialog(this, "O mês precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textCodigo.setText("");
+        } else {
+            
+            Object [][] linha = controle.retornarVendasMesEspecifico(Integer.parseInt(mes));
+        
+
+            DefaultTableModel modelo = (DefaultTableModel) produto_Table.getModel();
+            for(int cont = 0; cont < controle.retornarVendasClienteEspecifico(Integer.parseInt(mes)).length; cont++){
+                modelo.addRow(linha[cont]);
+            }
+            
+            
+            textCodigo.setText("");
+
+            
+        }
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,13 +182,13 @@ public class IURelatorioProdutoEletrodomesticos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IURelatorioProdutoEletrodomesticos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IURelatorioVendaMes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IURelatorioProdutoEletrodomesticos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IURelatorioVendaMes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IURelatorioProdutoEletrodomesticos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IURelatorioVendaMes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IURelatorioProdutoEletrodomesticos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IURelatorioVendaMes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -645,7 +706,7 @@ public class IURelatorioProdutoEletrodomesticos extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                IURelatorioProdutoEletrodomesticos dialog = new IURelatorioProdutoEletrodomesticos(new javax.swing.JFrame(), true);
+                IURelatorioVendaMes dialog = new IURelatorioVendaMes(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -658,7 +719,9 @@ public class IURelatorioProdutoEletrodomesticos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable produto_Table;
+    private javax.swing.JTextField textCodigo;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,8 @@
 package Interface;
 
 import Controlador.ControladorFornecedor;
+import Interface.Utils.Utils;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -162,7 +164,7 @@ public class IUCadastroFornecedor extends javax.swing.JDialog {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
         
-        int codigoFornecedor = Integer.parseInt(this.textCodigo.getText().trim());
+        String codigoFornecedor = this.textCodigo.getText();
         String cnpj = this.textCNPJ.getText();
         String nome = this.textNome.getText();
         String descricao = this.textDescricao.getText();
@@ -171,7 +173,33 @@ public class IUCadastroFornecedor extends javax.swing.JDialog {
         String endereco = this.textEndereco.getText();
         
         Controlador.ControladorFornecedor control = new ControladorFornecedor();
-        control.addFornecedor(codigoFornecedor, cnpj, nome, descricao, email, telefone, endereco);
+        
+        
+        //Tratamento de erros
+        String[] values = {codigoFornecedor, cnpj, nome, descricao, email, telefone, endereco};
+        if(Utils.hasNull(values)){
+            JOptionPane.showMessageDialog(this, "Todos os campos precisam ser preenchidos!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else if (!Utils.isInt(codigoFornecedor)){
+            JOptionPane.showMessageDialog(this, "Código do cliente precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textCodigo.setText("");
+        } else {
+            
+            control.addFornecedor(Integer.parseInt(codigoFornecedor), cnpj, nome, descricao, email, telefone, endereco);
+            
+            JOptionPane.showMessageDialog(this, "Fornecedor cadastrado com sucesso!",
+                    "Sucesso", JOptionPane.WARNING_MESSAGE);
+            
+            textCodigo.setText("");
+            textNome.setText("");
+            textCNPJ.setText("");
+            textEndereco.setText("");         
+            textEmail.setText("");
+            textTelefone.setText("");
+            textDescricao.setText("");
+            
+        }
        
     }//GEN-LAST:event_btnSalvarActionPerformed
 

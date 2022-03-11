@@ -5,9 +5,11 @@
 package Interface;
 
 import Controlador.ControladorUsuario;
+import Interface.Utils.Utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -226,13 +228,13 @@ public class IUCadastroVendedor extends javax.swing.JDialog {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
 
-        int codigo = Integer.parseInt(this.textCodigo.getText().trim());
+        String codigo = this.textCodigo.getText();
         String nome = this.textNome.getText();
         String cpf = this.textCPF.getText();
         String rg = this.textRg.getText();
         String endereco = this.textEndereco.getText();
         String cep = this.textCEP.getText();
-        float salario = Integer.parseInt(this.textSalario.getText().trim());
+        String salario = this.textSalario.getText();
         String email = this.textEmail.getText();
 
         Calendar dataNascimento = Calendar.getInstance();
@@ -262,7 +264,38 @@ public class IUCadastroVendedor extends javax.swing.JDialog {
         }
 
         ControladorUsuario control = new ControladorUsuario();
-        control.addVendedor(codigo, nome, cpf, rg, dataNascimento, endereco, cep, email, salario, cep, dataAdmissao);
+
+        //
+        String[] values = {codigo, nome, cpf, rg, endereco, cep, email, salario, cep};
+        
+        if(Utils.hasNull(values)){
+            JOptionPane.showMessageDialog(this, "Todos os campos precisam ser preenchidos!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else if (!Utils.isInt(codigo)){
+            JOptionPane.showMessageDialog(this, "Código do cliente precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textCodigo.setText("");
+        }else if(!Utils.isFloat(salario)){
+            JOptionPane.showMessageDialog(this, "Valor precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textSalario.setText("");
+        
+        } else {
+            
+            control.addVendedor(Integer.parseInt(codigo), nome, cpf, rg, dataNascimento, endereco, cep, email, Float.parseFloat(salario), cep, dataAdmissao);
+            
+            JOptionPane.showMessageDialog(this, "Vendedor cadastrado com sucesso!",
+                    "Sucesso", JOptionPane.WARNING_MESSAGE);
+            
+            textCodigo.setText("");
+            textNome.setText("");
+            textCPF.setText("");
+            textRg.setText("");
+            textNascimento.setText("");
+            textEndereco.setText("");
+            textEmail.setText("");
+            textSalario.setText("");
+        }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 

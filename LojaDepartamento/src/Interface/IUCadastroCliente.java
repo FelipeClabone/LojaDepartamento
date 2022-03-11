@@ -5,9 +5,11 @@
 package Interface;
 
 import Controlador.ControladorUsuario;
+import Interface.Utils.Utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -202,7 +204,7 @@ public class IUCadastroCliente extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        int codigo = Integer.parseInt(this.textCodigo.getText().trim());
+        String codigo = this.textCodigo.getText();
         String nome = this.textNome.getText();
         String cpf = this.textCPF.getText();
         String rg = this.textRg.getText();
@@ -211,10 +213,10 @@ public class IUCadastroCliente extends javax.swing.JDialog {
         String email = this.textEmail.getText();
         boolean clienteOuro = this.textOuro.isSelected();
                 
-
+        String data = this.textNascimento.getText();
         Calendar dataNascimento = Calendar.getInstance();
         try {
-            String data = this.textNascimento.getText();
+       
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
             dataNascimento.setTime(sdf.parse(data));
             System.out.println("ANO: " + dataNascimento.get(Calendar.YEAR));
@@ -226,11 +228,33 @@ public class IUCadastroCliente extends javax.swing.JDialog {
         }
         
         ControladorUsuario control = new ControladorUsuario();
-        control.addCliente(codigo, nome, cpf, rg, dataNascimento, endereco, cep, email,clienteOuro);
-        control.retornarRelatorioCliente();
-
         
-        
+        String[] values = {codigo, nome, cpf, rg,endereco, cep, email,data};
+        if(Utils.hasNull(values)){
+            JOptionPane.showMessageDialog(this, "Todos os campos precisam ser preenchidos!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else if (!Utils.isInt(codigo)){
+            JOptionPane.showMessageDialog(this, "Código do cliente precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textCodigo.setText("");
+        } else {
+            
+            control.addCliente(Integer.parseInt(codigo), nome, cpf, rg, dataNascimento, endereco, cep, email,clienteOuro);
+            //control.retornarRelatorioCliente();
+            
+            JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!",
+                    "Sucesso", JOptionPane.WARNING_MESSAGE);
+            
+            textCodigo.setText("");
+            textNome.setText("");
+            textCPF.setText("");
+            textRg.setText("");
+            textNascimento.setText("");
+            textEndereco.setText("");
+            textCEP.setText("");
+            textEmail.setText("");
+            
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**

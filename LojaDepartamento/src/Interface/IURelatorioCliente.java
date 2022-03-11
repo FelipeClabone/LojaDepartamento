@@ -71,10 +71,7 @@ public class IURelatorioCliente extends javax.swing.JDialog {
 
         produto_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome", "CPF", "Ouro"

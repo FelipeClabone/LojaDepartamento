@@ -29,7 +29,7 @@ public class IURelatorioFornecedor extends javax.swing.JDialog {
         produto_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
         produto_Table.getColumnModel().getColumn(1).setPreferredWidth(50);
         produto_Table.getColumnModel().getColumn(2).setPreferredWidth(50);
-        produto_Table.getColumnModel().getColumn(3).setPreferredWidth(50);
+      
         
         DefaultTableCellRenderer l = new DefaultTableCellRenderer();  
         DefaultTableCellRenderer c = new DefaultTableCellRenderer();  
@@ -40,7 +40,7 @@ public class IURelatorioFornecedor extends javax.swing.JDialog {
         produto_Table.getColumnModel().getColumn(0).setCellRenderer(c);
         produto_Table.getColumnModel().getColumn(1).setCellRenderer(l);
         produto_Table.getColumnModel().getColumn(2).setCellRenderer(l);
-        produto_Table.getColumnModel().getColumn(3).setCellRenderer(l);
+     
         
         //Requisição de dados ou relatório
         
@@ -71,10 +71,7 @@ public class IURelatorioFornecedor extends javax.swing.JDialog {
 
         produto_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome", "CNPJ"

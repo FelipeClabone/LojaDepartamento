@@ -7,10 +7,12 @@ package Interface;
 import Controlador.ControladorProduto;
 import Controlador.ControladorFornecedor;
 import Controlador.ControladorUsuario;
+import Interface.Utils.Utils;
 import Modelo.Fornecedor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -225,18 +227,17 @@ public class IUCadastroProdutos extends javax.swing.JDialog {
         String tipoProduto = String.valueOf(this.textTipo.getSelectedItem());
         
         
-        int codigoProduto = Integer.parseInt(this.textCodigo.getText().trim());
+        String codigoProduto = textCodigo.getText();
         String nome = this.textNome.getText();
         String descricao = this.textDescricao.getText();
-        int valor = Integer.parseInt(this.textValor.getText().trim());
-        int codigoFornecedor = Integer.parseInt(this.textFornecedor.getText().trim());
+        String valor = this.textValor.getText();
+        String codigoFornecedor = textFornecedor.getText();
         
         boolean disponivel = this.textDisponivel.isSelected();
         
-       
+        String data = this.textFabricacao.getText();
         Calendar dataFabricacao = Calendar.getInstance();
         try {
-            String data = this.textFabricacao.getText();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
             dataFabricacao.setTime(sdf.parse(data));
             System.out.println("ANO: " + dataFabricacao.get(Calendar.YEAR));
@@ -248,12 +249,43 @@ public class IUCadastroProdutos extends javax.swing.JDialog {
         }
         
         ControladorFornecedor controlFornecedor = new ControladorFornecedor();
-        Fornecedor fornecedor = controlFornecedor.buscaFornecedor(codigoFornecedor);
+        
         
         ControladorProduto control = new ControladorProduto();
-        control.addProduto(codigoProduto, nome, descricao, dataFabricacao, valor, fornecedor, disponivel,tipoProduto);
+  
         
+        String[] values = {codigoProduto, nome, descricao,valor,tipoProduto,codigoFornecedor,data};
         
+        if(Utils.hasNull(values)){
+            JOptionPane.showMessageDialog(this, "Todos os campos precisam ser preenchidos!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else if (!Utils.isInt(codigoProduto) && !Utils.isInt(codigoFornecedor)){
+            JOptionPane.showMessageDialog(this, "Código do cliente e do fornecedor precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textCodigo.setText("");
+        } else if(!Utils.isFloat(valor)){
+           JOptionPane.showMessageDialog(this, "O valor do produto precisa ser um valor numérico!",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            textValor.setText("");
+        } 
+        else {
+            if(controlFornecedor.buscaFornecedor(Integer.parseInt(codigoFornecedor)) == null){
+                JOptionPane.showMessageDialog(this, "Não foi encontrado o fornecedor!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            }else{
+                Fornecedor fornecedor = controlFornecedor.buscaFornecedor(Integer.parseInt(codigoFornecedor));
+                control.addProduto(Integer.parseInt(codigoProduto), nome, descricao, dataFabricacao, Float.parseFloat(valor), fornecedor, disponivel,tipoProduto);
+               
+                JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!",
+                    "Sucesso", JOptionPane.WARNING_MESSAGE);
+                
+                textCodigo.setText("");
+                textNome.setText("");
+                textValor.setText("");
+                textDescricao.setText("");
+                textFornecedor.setText("");
+                textFabricacao.setText("");
+            }
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
