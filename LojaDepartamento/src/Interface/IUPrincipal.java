@@ -187,6 +187,11 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem6);
 
         jMenuItem7.setText("Ordenados por valor");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem7);
 
         menuPrincipal.add(jMenu1);
@@ -467,6 +472,14 @@ public class IUPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        IURelatorioProdutoOrdenado cadastro = new IURelatorioProdutoOrdenado(this,true);
+        cadastro.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
