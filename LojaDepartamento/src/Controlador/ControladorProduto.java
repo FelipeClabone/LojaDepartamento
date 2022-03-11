@@ -18,6 +18,8 @@ import Modelo.StrategyOrdenacaoA;
 import Modelo.StrategyOrdenacaoB;
 import Modelo.Usuario;
 import Modelo.Vestuario;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -161,7 +163,7 @@ public class ControladorProduto {
         Contexto contexto = new Contexto();
          
         contexto.setStrategy(new StrategyOrdenacaoA());
-        Produto[] produtos = (Produto[]) LojaDepartamento.getProdutos().toArray();
+        ArrayList<Produto> produtos =  LojaDepartamento.getProdutos();
         
         return contexto.executarStrategy(produtos);       
     }
@@ -170,7 +172,7 @@ public class ControladorProduto {
         Contexto contexto = new Contexto();
          
         contexto.setStrategy(new StrategyOrdenacaoB());
-        Produto[] produtos = (Produto[]) LojaDepartamento.getProdutos().toArray();
+        ArrayList<Produto> produtos =  LojaDepartamento.getProdutos();
         
         return contexto.executarStrategy(produtos);  
     }

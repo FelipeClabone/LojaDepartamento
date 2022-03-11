@@ -18,7 +18,7 @@ public class Contexto {
         this.strategy = strategy;
     }
     
-    public ArrayList<Produto> executarStrategy(Produto[] produtos){
-        return strategy.executarOrdenacao(produtos);
+    public ArrayList<Produto> executarStrategy(ArrayList<Produto> produtosGeral){
+        return strategy.executarOrdenacao(produtosGeral);
     }
 }

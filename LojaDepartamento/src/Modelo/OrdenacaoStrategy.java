@@ -13,5 +13,5 @@ import java.util.ArrayList;
  */
 public interface OrdenacaoStrategy {
     
-    public ArrayList<Produto> executarOrdenacao(Produto[] produtos);
+    public ArrayList<Produto> executarOrdenacao(ArrayList<Produto> produtosGeral);
 }

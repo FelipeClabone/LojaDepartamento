@@ -13,18 +13,19 @@ import java.util.Arrays;
  * @author Felipe de Freitas
  */
 public class StrategyOrdenacaoA implements OrdenacaoStrategy{
-    //private Produto produtos[];
-    private static ArrayList<Produto> produtosOrdenados = new ArrayList();;
-    //private int cont;
-    
+    private static ArrayList<Produto> produtosOrdenados = new ArrayList();
+
     @Override
-    public ArrayList<Produto> executarOrdenacao(Produto[] produtos){
-        /**
+    public ArrayList<Produto> executarOrdenacao(ArrayList<Produto> produtosGeral){
+
+        produtosOrdenados.clear();
+        Produto produtos[] = new Produto[produtosGeral.size()];
+        int cont = 0;
         for(Produto produto : produtosGeral){
             produtos[cont] = produto;
             cont++;
         }
-        */
+
         boolean troca = true;
         Produto aux;
         while (troca) {

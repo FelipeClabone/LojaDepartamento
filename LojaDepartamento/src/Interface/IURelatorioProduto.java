@@ -51,7 +51,6 @@ public class IURelatorioProduto extends javax.swing.JDialog {
         for(int cont = 0; cont < controle.retornarRelatorioProdutos().length; cont++){
             modelo.addRow(linha[cont]);
         }
-        
     }
 
     /**

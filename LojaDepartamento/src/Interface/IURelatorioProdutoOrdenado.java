@@ -5,9 +5,12 @@
 package Interface;
 
 import Controlador.ControladorProduto;
+import Modelo.Produto;
+
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -51,7 +54,6 @@ public class IURelatorioProdutoOrdenado extends javax.swing.JDialog {
         for(int cont = 0; cont < controle.retornarRelatorioProdutos().length; cont++){
             modelo.addRow(linha[cont]);
         }
-        
     }
 
     /**
@@ -140,10 +142,45 @@ public class IURelatorioProdutoOrdenado extends javax.swing.JDialog {
 
     private void btnAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAActionPerformed
         // TODO add your handling code here:
+        produto_Table.removeRowSelectionInterval(0, produto_Table.getRowCount() - 1);
+        ControladorProduto controle = new ControladorProduto();
+        ArrayList<Produto> produtos = controle.retornarRelatorioProdutosOrdenadosB();
+
+        Object [][] linha = controle.retornarRelatorioProdutos();
+        int cont = 0;
+        for(Produto produto : produtos){
+            linha[cont][0] = produto.getCodigoProduto();
+            linha[cont][1] = produto.getNome();
+            linha[cont][2] = produto.calcularValor();
+            cont++;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) produto_Table.getModel();
+        for(int i = 0; i < produtos.size(); i++){
+            modelo.addRow(linha[i]);
+        }
     }//GEN-LAST:event_btnAActionPerformed
 
     private void btnBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBActionPerformed
         // TODO add your handling code here:
+
+        produto_Table.removeRowSelectionInterval(0, produto_Table.getRowCount() - 1);
+        ControladorProduto controle = new ControladorProduto();
+        ArrayList<Produto> produtos = controle.retornarRelatorioProdutosOrdenadosA();
+
+        Object [][] linha = controle.retornarRelatorioProdutos();
+        int cont = 0;
+        for(Produto produto : produtos){
+            linha[cont][0] = produto.getCodigoProduto();
+            linha[cont][1] = produto.getNome();
+            linha[cont][2] = produto.calcularValor();
+            cont++;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) produto_Table.getModel();
+        for(int i = 0; i < produtos.size(); i++){
+            modelo.addRow(linha[i]);
+        }
     }//GEN-LAST:event_btnBActionPerformed
 
     /**

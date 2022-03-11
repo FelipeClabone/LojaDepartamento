@@ -16,7 +16,17 @@ public class StrategyOrdenacaoB implements OrdenacaoStrategy{
     private static ArrayList<Produto> produtosOrdenados = new ArrayList();;
     
     @Override
-    public ArrayList<Produto> executarOrdenacao(Produto[] produtos){        
+    public ArrayList<Produto> executarOrdenacao(ArrayList<Produto> produtosGeral){
+
+        produtosOrdenados.clear();
+        Produto produtos[] = new Produto[produtosGeral.size()];
+        int cont = 0;
+
+        for(Produto produto : produtosGeral){
+            produtos[cont] = produto;
+            cont++;
+        }
+
         int j;
         float key;
         Produto keyProduto;
